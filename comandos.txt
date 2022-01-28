@@ -1,0 +1,41 @@
+pip3 install django
+
+#cria projeto
+djando-admin startproject projeto .
+
+#inicia o servidor djando
+venv\Scripts\python.exe manage.py runserver
+ou na porta 8888
+venv\Scripts\python.exe manage.py runserver 8888
+
+#criar um app
+venv\Scripts\python.exe manage.py startapp app1
+
+1º passo:
+#ir na pasta principal do projeto/settings.py e registrar o app em INSTALLED_APPS
+INSTALLED_APPS = [
+    'produto.apps.ProdutoConfig',
+]
+
+2º passo:
+#ir na pasta principal do projeto/urls.py e registrar o app em urlpatterns
+urlpatterns = [
+    path('produto/', include('produto.urls')),
+]
+
+3º passo:
+#criar o arquivo urls.py dentro da pasta do app com o conteudo
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index),
+]
+
+4º passo:
+#editar o arquivo views.py dentro da pasta do app
+from django.shortcuts import render
+
+def index(request):
+    return render(request, 'index.html')
+
